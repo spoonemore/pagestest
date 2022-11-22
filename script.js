@@ -10,7 +10,8 @@ function display(value) {
  
 // This function evaluates the expression and returns result
 function calculate() {
-    var p = document.getElementById("result").value;
-    var q = eval(p);
-    document.getElementById("result").value = q;
+    var existing_count = document.getElementById("existing-haul-count-input").value;
+    var existing_rate = document.getElementById("existing-haul-rate-input").value;
+    var existing_cost = (existing_count)(existing_rate)
+    document.getElementById("calculate-current-btn").value = existing_cost;
 }
