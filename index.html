@@ -1,35 +1,154 @@
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>Simple Calculator using HTML, CSS and JavaScript</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
- 
-<body>
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="shortcut icon" href="https://c.s-microsoft.com/favicon.ico?v2" />
+    <title>My Sample PWA</title>
+    <link rel="manifest" href="/manifest.json">
+  </head>
+  
+  <body>
+    <table id="exsting-haul-cost">       
+      <tr>
+        <td>
+          Existing Haul Rate
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="cost_input" onkeyup="display_cost()"></td>
+      </tr>
+      <tr>
+        <td>
+          Eixsting Haul Frequency
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="frequency_input" onkeyup="display_cost()"></td>
+      </tr>
+      <tr>
+        <td>
+          Existing Waste Cost
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="calculated_result" readonly></td>
+      </tr>
+    </table>
+    
+    <hr>
 
-<table class="calculator" >
-  <tr>
-    <td>Existing Number of Hauls</td>
-  </tr>
-  <tr>
-    <td><input class="existing-haul-count-box" type="number" id="existing-haul-count-input" /></td>
-  </tr>
-  <tr>
-    <td>Existing Haul Rate</td>
-  </tr>
-  <tr>
-    <td><input class="existing-haul-rate-box" type="number" id="existing-haul-rate-input" /></td>
-  </tr>
-  <tr>
-    <td>Current Haul Cost</td>
-  </tr>
-  <tr>
-    <td><input class="current-haul-cost-box" type="number" id="current-haul-cost-result" /></td>
-  </tr>
-  <tr>
-    <td> <input type="button" value="Calculate Current" onclick="calculate()" id="calculate-current-btn" /> </td>
-  </tr>
-</table>
-</body>
+    <table id="target-haul-cost">       
+      <td>
+        Existing Haul Rate
+      </td>
+      <tr>
+        <td colspan="1"><input type="text" id="existing_haul_rate" name="country" readonly></td>
+      </tr>
+      <tr>
+        <td>
+          Target Haul Frequency
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="target_haul_frequency" onkeyup="display_cost()"></td>
+      </tr>
+      <tr>
+        <td>
+          Target Crush Frequency
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="target_crush_frequency" onkeyup="display_cost()"></td>
+      </tr>
+      <tr>
+        <td>
+          Crush Rate
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="crush_cost" onkeyup="display_cost()"></td>
+      </tr>
+      <tr>
+        <td>
+          Target Waste Cost
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="target_waste_cost" onkeyup="display_cost()" readonly></td>
+      </tr>
+    </table>
+    
+    <hr>
+  </body>
+
+<table id="comparisons">       
+      <tr>
+        <td>
+          Current Price
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="comparison_current" onkeyup="display_cost()"></td>
+      </tr>
+      <tr>
+        <td>
+          Target Price
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="comparison_target" onkeyup="display_cost()"></td>
+      </tr>
+      <tr>
+        <td>
+          Percentage Savings
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="comparison_percentage" readonly></td>
+      </tr>
+      <tr>
+        <td>
+          Dollar Savings
+        </td>
+      </tr>
+      <tr>
+        <td colspan="1"><input type="number" id="comparison_dollar" readonly></td>
+      </tr>
+    </table>
+
+  <script>
+    // Function that evaluates the digit and return result
+    function display_cost() {
+      let varCurrentHaulCost = document.getElementById("cost_input").value
+      let varCurrentHaulFrequency = document.getElementById("frequency_input").value
+      let varTargetHaulFrequency = document.getElementById("target_haul_frequency").value
+      let varTargetCrushCost = document.getElementById("crush_cost").value
+      let varTargetCrushFrequency = document.getElementById("target_crush_frequency").value  
+
+      //calculations
+      let varCurrentTotalCost = parseInt(varCurrentHaulCost) * parseInt(varCurrentHaulFrequency)
+      let varTargetTotalCost = (parseInt(varTargetCrushFrequency) * parseInt(varTargetCrushCost))+(parseInt(varCurrentHaulCost) * parseInt(varTargetHaulFrequency))
+      let varCurrentTotalCost = parseInt(varCurrentHaulCost) * parseInt(varCurrentHaulFrequency)
+
+            
+      //print values
+      document.getElementById("existing_haul_rate").value = varCurrentHaulCost
+      document.getElementById("calculated_result").value = varCurrentTotalCost
+      document.getElementById("target_waste_cost").value = varTargetTotalCost
+      document.getElementById("comparison_current").value = varCurrentTotalCost
+      document.getElementById("comparison_target").value = varTargetTotalCost
+    }
+    
+    // Function that clear the display
+    function clr() {
+      document.getElementById("result").value = ""
+    }
+
+    if('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js', { scope: '/' });
+    }
+    </script>
 </html>
