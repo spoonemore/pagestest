@@ -12,6 +12,6 @@ function display(value) {
 function calculate() {
     var existing_count = document.getElementById("existing-haul-count-input").value;
     var existing_rate = document.getElementById("existing-haul-rate-input").value;
-    var existing_cost = (existing_count)(existing_rate)
+    var existing_cost = (existing_count)*(existing_rate)
     document.getElementById("calculate-current-btn").value = existing_cost;
 }
